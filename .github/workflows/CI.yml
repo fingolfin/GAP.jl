@@ -30,6 +30,12 @@ jobs:
           - macOS-latest
 
     steps:
+      - run: |
+          printenv | sort
+          echo "github.job = ${{ github.job }}" 
+          echo "github.ref = ${{ github.ref }}" 
+          echo "github.run_id = ${{ github.run_id }}" 
+          echo "github.run_number = ${{ github.run_number }}" 
       - uses: actions/checkout@v2
         with:
           # For Codecov, we must also fetch the parent of the HEAD commit to
