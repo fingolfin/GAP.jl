@@ -1,7 +1,3 @@
-sdfdsf
-dsfgsdfgdsf
-
-
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://oscar-system.github.io/GAP.jl/stable)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://oscar-system.github.io/GAP.jl/dev)
 [![Build Status](https://github.com/oscar-system/GAP.jl/workflows/CI/badge.svg)](https://github.com/oscar-system/GAP.jl/actions?query=workflow%3A%22CI%22+branch%3Amaster)
