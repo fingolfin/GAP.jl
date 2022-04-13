@@ -96,6 +96,13 @@ function initialize(argv::Vector{String})
     # TODO: turn this into a proper libgap API
     unsafe_store!(cglobal((:SyLoadSystemInitFile, libgap), Int64), 0)
 
+    # remember sigchld handler
+    if Sys.isbsd() || Sys.islinux()
+        sigchld = Sys.isbsd() ? 20 : 17
+        # nullptr == SIG_DFL
+        prev_sigchld_hdl = ccall(:signal, Ptr{Cvoid}, (Cint, Ptr{Cvoid}), sigchld, Ptr{Cvoid}(0))
+    end
+
     ccall(
         (:GAP_Initialize, libgap),
         Cvoid,
@@ -106,6 +113,13 @@ function initialize(argv::Vector{String})
         error_handler_func,
         handle_signals,
     )
+
+    # restore previous sigchld handler
+    # the one from gap should not be necessary with the replaced ExecuteProcess
+    # it also interferes badly with julia subprocess handling on macos because of the waitpid(-1)
+    if Sys.isbsd() || Sys.islinux()
+        gap_chld_hdl = ccall(:signal, Ptr{Cvoid}, (Cint, Ptr{Cvoid}), sigchld, prev_sigchld_hdl)
+    end
 
     # HACK HACK HACK workaround
     Base.GC.gc(true)
