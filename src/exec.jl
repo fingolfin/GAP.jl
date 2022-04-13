@@ -54,6 +54,6 @@ function GAP_ExecuteProcess(dir::String, prg::String, fin::Int, fout::Int, args:
     # TODO: verify `dir` is a valid dir?
     cd(dir) do
         res = run(pipeline(ignorestatus(`$prg $args`), stdin=fin, stdout=fout))
-        return res == 255 ? GAP.Globals.Fail : res
+        return res.exitcode == 255 ? GAP.Globals.Fail : res.exitcode
     end
 end
