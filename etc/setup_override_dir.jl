@@ -68,7 +68,7 @@ juliabin = joinpath(Sys.BINDIR, Base.julia_exename())
 #
 # create a temporary directory for the build
 #
-tmp_gap_build_dir = mktempdir(; cleanup = true)
+tmp_gap_build_dir = mktempdir(; cleanup = false)
 cd(tmp_gap_build_dir)
 
 #
@@ -85,7 +85,7 @@ if debugmode
 else
     extraargs = []
 end
-push!(extraargs, "CPPFLAGS=-DUSE_GAP_INSIDE_JULIA=1")
+push!(extraargs, "CPPFLAGS=-DUSE_GAP_INSIDE_JULIA=1 -DREQUIRE_PRECISE_MARKING=1")
 
 # TODO: redirect the output of configure into a log file
 @show run(`$(gap_prefix)/configure
