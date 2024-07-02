@@ -52,5 +52,5 @@ withenv("JULIA_DEPOT_PATH"=>tmpdepot*":", "FORCE_JULIAINTERFACE_COMPILATION" => 
 
     # ... and start Julia, by default with the same project environment
     #run(`$(Base.julia_cmd()) --project=$(Base.active_project()) $(ARGS)`)
-    run(`$(Base.julia_cmd()) -t4 --project=$(Base.active_project()) $(ARGS)`)
+    run(`$(Base.julia_cmd()) --project=$(Base.active_project()) $(ARGS)`)
 end

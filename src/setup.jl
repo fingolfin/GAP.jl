@@ -220,8 +220,9 @@ function build_JuliaInterface(sysinfo::Dict{String, String})
     cd(jipath) do
         withenv("CFLAGS" => JULIA_CPPFLAGS,
                 "LDFLAGS" => JULIA_LDFLAGS * " " * JULIA_LIBS) do
-            run(pipeline(`./configure $(gaproot())`, stdout="build.log"))
-            run(pipeline(`make V=1 -j$(Sys.CPU_THREADS)`, stdout="build.log", append=true))
+            run(`pwd`)
+            run(pipeline(`./configure $(gaproot())`))
+            run(pipeline(`make V=1 -j$(Sys.CPU_THREADS)`))
         end
     end
 
